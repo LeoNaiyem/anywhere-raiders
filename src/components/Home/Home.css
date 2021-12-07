@@ -1,0 +1,13 @@
+.home{
+    background-image: url(../../images/Bg.png);
+    min-height: 100vh;
+    background-position:bottom;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.card-area{
+    padding: 9rem 5rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
