@@ -8,7 +8,7 @@
 
 .login-area {
     width: 30vw;
-    height: 61vh;
+    min-height: 61vh;
     text-align: center;
     padding: 2rem 3.5rem;
     border-radius: 10px;

@@ -1,6 +1,6 @@
 .signUp-area{
     width: 30vw;
-    height: 72vh;
+    min-height: 72vh;
     text-align: center;
     padding: 2rem 3.5rem;
     border-radius: 10px;
