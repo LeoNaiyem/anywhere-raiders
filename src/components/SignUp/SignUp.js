@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import './SignUp.css'
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import GoogleIcon from '@mui/icons-material/Google';
 import { initializeApp } from "firebase/app";
 import firebaseConfig from './firebase.config'
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider, updateProfile, createUserWithEmailAndPassword } from "firebase/auth";
 import { UserContext } from '../../App';
 
 
@@ -19,24 +19,69 @@ const SignUp = () => {
     const location = useLocation();
     let from = location.state?.from?.pathname || "/";
     const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
 
 
-    const handleSubmit = (e) => {
-        console.log('submit', e);
-    }
     const handleInput = (e) => {
-        console.log('input', e);
+        const { name, value } = e.currentTarget;
+        if (name === "name") {
+            setName(value);
+        } else if (name === "email") {
+            setEmail(value);
+        } else if (name === 'password') {
+            setPassword(value);
+        } else if (name === 'confirmPassword') {
+            if (value === password) {
+                setConfirmPassword(value);
+            } else {
+                console.log('Passwords are not matching')
+            }
+        }
     }
+    const handleSubmit = (e) => {
+        if (name && email && password && confirmPassword) {
+            const auth = getAuth();
+            createUserWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    setLoggedInUser(user)
+                    updateUserName(name)
+                    navigate(from, { replace: true });
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    console.log(errorCode, errorMessage);
+                });
+        }
+        e.preventDefault();
+    }
+
+
+    const updateUserName = (userName) => {
+        const auth = getAuth();
+        updateProfile(auth.currentUser, {
+            displayName: userName
+
+        }).then(() => {
+            console.log('profile updated')
+        }).catch((error) => {
+            console.log(error);
+        });
+    }
+
+
     const handleGoogleSignIn = (e) => {
         const googleProvider = new GoogleAuthProvider();
         const auth = getAuth();
         signInWithPopup(auth, googleProvider)
             .then((result) => {
-                const {displayName, email} = result.user;
-                const newUser = {name: displayName, email: email}
-                setLoggedInUser(newUser);
+                const user = result.user;
+                setLoggedInUser(user)
                 navigate(from, { replace: true });
-                console.log(newUser.email);
             }).catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
