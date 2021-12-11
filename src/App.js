@@ -28,10 +28,6 @@ function App() {
             </PrivateRoute>
           }
         />
-        {/* <Route element={<PrivateRoute />}>
-          <Route path="/destination" element={<Destination />} />
-        </Route> */}
-
         <Route path="/login" element={<Login />} />
         <Route path="/SignUp" element={<SignUp />} />
         <Route path="/blog" element={<Blog />} />

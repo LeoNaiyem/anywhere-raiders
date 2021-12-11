@@ -23,7 +23,6 @@ const Destination = () => {
 
     const selectedTransport = transports.filter( transport => transport.name === name);
     const selectedTransportObj = selectedTransport[0];
-    console.log(selectedTransportObj?.id);
 
     const handleSearch = () => {
         if (cityFrom && cityTo && date) {

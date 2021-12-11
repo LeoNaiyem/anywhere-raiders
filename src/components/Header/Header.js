@@ -19,6 +19,11 @@ const Header = () => {
                     <li><Link className ="nav-link" to ='/contact'>Contact</Link></li>                   
                 </ul>
             </nav>
+            <div className="user-name">
+                {
+                    loggedInUser.displayName ? <p>{loggedInUser.displayName}</p> : <p style ={{fontSize:'14px'}}>{loggedInUser.email}</p>
+                }
+            </div>
             {loggedInUser.email ? <button onClick = {handleSignOut} className="login-btn">Logout</button> :  <Link className="login-btn" to='/login'>Login</Link>}
         </div>
     );

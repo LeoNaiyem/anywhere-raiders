@@ -9,7 +9,7 @@ const Login = () => {
     const [loggedInUser, setLoggedInUser] = useContext(UserContext);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState(null);
+    const [error, setError] = useState('');
     const navigate = useNavigate();
     const location = useLocation();
     let from = location.state?.from?.pathname || "/";
@@ -20,8 +20,8 @@ const Login = () => {
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 const user = userCredential.user;
-                console.log(user);
                 setLoggedInUser(user);
+                setError('');
                 navigate(from, { replace: true });
 
             })
@@ -59,6 +59,7 @@ const Login = () => {
                 const errorMessage = error.message;
                 const email = error.email;
                 const credential = GoogleAuthProvider.credentialFromError(error);
+                setError(errorMessage);
                 console.log(errorCode, errorMessage, email, credential);
             });
     }
@@ -67,7 +68,7 @@ const Login = () => {
         <div className="login">
 
             <div className="login-area">
-                <h2>Create An Account</h2>
+                <h2>Login</h2>
                 <form action="" onSubmit={handleSubmit} >
                     <input onBlur={handleInput} className='input-field' type="email" name="email" required placeholder="Enter Your Email" id="email" /> <br />
                     <input onBlur={handleInput} className='input-field' type="password" name="password" placeholder="Enter Your Password" /> <br />
@@ -76,6 +77,7 @@ const Login = () => {
                 <p><small>Don't have an account?<Link className='signUp-link' to="/signUp"> Create an account</Link> </small></p>
                 <p style={{ color: 'white' }} >Or</p>
                 <button onClick= {handleGoogleLogin} className="submit-btn"> <GoogleIcon style={{ fill: "#4285F4", margin: '5px', fontSize: '25px' }} />Continue with Google</button>
+                <p style={{ marginTop: '10px'}}><small className="input-error" style={{fontSize:'16px'}} >{error}</small></p>
             </div>
         </div>
     );

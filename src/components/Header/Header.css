@@ -13,8 +13,12 @@
 }
 .brand{
     font-size: 25px;
+
     font-weight: 800;
     color: #ff4400;
+}
+nav{
+    width: 55%;
 }
 .nav-links{
     text-align: center;
@@ -43,5 +47,12 @@
     background-color: transparent;
     color:black;
     transition: background-color .5s ease-in-out;
+
+}
+.user-name p{
+    padding: 5px 10px;
+    color: #d53b04;
+    font-size: 18px;
+    font-weight: 700;
 
 }

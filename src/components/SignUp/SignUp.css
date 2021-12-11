@@ -8,3 +8,16 @@
     background: -webkit-linear-gradient(to top, #6f0000, #200122);
     background: linear-gradient(to top, #6f0000, #200122);
 }
+.signUp-area input{
+    position: relative;
+}
+.error-message{
+    position: absolute;
+    top: 109px;
+    left: 529px;
+}
+.input-error{
+    font-size: 10px;
+    color: yellow;
+
+}

@@ -23,38 +23,53 @@ const SignUp = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [nameError, setNameError] = useState('');
+    const [emailError, setEmailError] = useState('');
+    const [passwordError, setPasswordError] = useState('');
+    const [confirmPasswordError, setConfirmPasswordError] = useState('');
+    const [firebaseError, setFirebaseError] = useState('');
 
 
     const handleInput = (e) => {
         const { name, value } = e.currentTarget;
+        setNameError('');
+        setEmailError('');
+        setPasswordError('');
+        setConfirmPasswordError('');
+        let isValid = false;
         if (name === "name") {
-            setName(value);
+            const regex = /^[a-zA-Z]+ [a-zA-Z]+$/;
+            isValid = regex.test(value);
+            isValid ? setName(value) : setNameError('Name must contain one white space!');
         } else if (name === "email") {
-            setEmail(value);
+            const regex = /\S+@\S+\.\S+/;
+            isValid = regex.test(value);
+            isValid ? setEmail(value) : setEmailError('Your email is not valid!');
         } else if (name === 'password') {
-            setPassword(value);
+            const regex = /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[a-zA-Z!#$%&? "])[a-zA-Z0-9!#$%&?]{8,20}$/;
+            isValid = regex.test(value);
+            isValid ? setPassword(value) : setPasswordError('Your password must contain min 8 max 20 char, 1 upper and lower case,1 special char and 1 num');
         } else if (name === 'confirmPassword') {
-            if (value === password) {
-                setConfirmPassword(value);
-            } else {
-                console.log('Passwords are not matching')
-            }
+            value === password ? setConfirmPassword(value) : setConfirmPasswordError('Password are not matching!');
         }
     }
+
+
     const handleSubmit = (e) => {
         if (name && email && password && confirmPassword) {
             const auth = getAuth();
             createUserWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
                     const user = userCredential.user;
-                    setLoggedInUser(user)
-                    updateUserName(name)
+                    setLoggedInUser(user);
+                    updateUserName(name);
+                    setFirebaseError('')
                     navigate(from, { replace: true });
                 })
                 .catch((error) => {
                     const errorCode = error.code;
                     const errorMessage = error.message;
-                    console.log(errorCode, errorMessage);
+                    setFirebaseError(errorMessage);
                 });
         }
         e.preventDefault();
@@ -87,6 +102,7 @@ const SignUp = () => {
                 const errorMessage = error.message;
                 const email = error.email;
                 const credential = GoogleAuthProvider.credentialFromError(error);
+                setFirebaseError(errorMessage);
                 console.log(errorCode, errorMessage, email, credential);
             });
     }
@@ -95,15 +111,20 @@ const SignUp = () => {
             <div className="signUp-area">
                 <h2>Create An Account</h2>
                 <form action="" onSubmit={handleSubmit} >
-                    <input onBlur={handleInput} className='input-field' type="text" name="name" required placeholder="Enter Your Name" id="name" /> <br />
-                    <input onBlur={handleInput} className='input-field' type="email" name="email" required placeholder="Enter Your Email" id="email" /> <br />
-                    <input onBlur={handleInput} className='input-field' type="password" name="password" placeholder="Enter Your Password" /> <br />
-                    <input onBlur={handleInput} className='input-field' type="password" name="confirmPassword" placeholder="Confirm Your Password" />
+                    <input onChange={handleInput} className='input-field' type="text" name="name" required placeholder="Enter Your Name" id="name" /> <br />
+                    <p><small className='input-error'> {nameError} </small></p>
+                    <input onChange={handleInput} className='input-field' type="email" name="email" required placeholder="Enter Your Email" id="email" /> <br />
+                    <p><small className='input-error'> {emailError} </small></p>
+                    <input onChange={handleInput} className='input-field' type="password" name="password" placeholder="Enter Your Password" /> <br />
+                    <p><small className='input-error'> {passwordError} </small></p>
+                    <input onChange={handleInput} className='input-field' type="password" name="confirmPassword" placeholder="Confirm Your Password" />
+                    <p><small className='input-error'> {confirmPasswordError} </small></p>
                     <input className='input-field submit-btn' type="submit" value="Sign Up" />
                 </form>
                 <p><small>Already have an account?<Link className='signUp-link' to="/login"> Login</Link> </small></p>
                 <p style={{ color: 'white' }} >Or</p>
                 <button onClick={handleGoogleSignIn} className="submit-btn"> <GoogleIcon style={{ fill: "green", margin: '5px', fontSize: '25px' }} />Continue with Google</button>
+                <p><small className="input-error" style={{fontSize:'14px'}} >{firebaseError}</small></p>
             </div>
         </div>
     );
