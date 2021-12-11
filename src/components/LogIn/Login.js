@@ -12,7 +12,7 @@ const Login = () => {
     const [error, setError] = useState('');
     const navigate = useNavigate();
     const location = useLocation();
-    let from = location.state?.from?.pathname || "/";
+    let from = location.state?.from?.pathname || "/destination/:name";
 
 
     const handleSubmit = (e) => {

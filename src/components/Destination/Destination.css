@@ -1,8 +1,8 @@
 .destination {
     padding: 5rem 1rem 1rem 2rem;
     display: flex;
-    justify-content: content;
-    height: 100vh;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .search-area {
@@ -20,6 +20,7 @@
     background-color: lightgray;
     padding: 2.5rem;
     border-radius: 10px;
+    margin-bottom: 2.5rem;
 
 }
 
@@ -137,3 +138,17 @@
 .transport span{
     padding-right: 10px;
 }
+@media only screen and (max-width: 600px) {
+    .destination{
+        flex-direction: column;
+        align-items: center;
+    }
+    .search-area {
+        width: 80%;
+    
+    }
+    
+    .map {
+        width: 90%;
+    }
+  }

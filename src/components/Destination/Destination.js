@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './Destination.css'
-import map from '../../images/Map.png'
-import car from '../../images/Frame-1.png'
+import bike from '../../images/Frame.png'
 import peopleIcon from "../../images/peopleicon.png"
 import { useParams } from 'react-router';
 import MyMap from '../MyMap/MyMap';
@@ -12,6 +11,7 @@ const Destination = () => {
     const [cityFrom, setCityFrom] = useState('');
     const [cityTo, setCityTo] = useState('');
     const [date, setDate] = useState('');
+    const [error, setError] = useState('');
     const [transports, setTransports] = useState([]);
 
     useEffect(() => {
@@ -21,15 +21,15 @@ const Destination = () => {
             .catch(error => console.log(error))
     }, [])
 
-    const selectedTransport = transports.filter( transport => transport.name === name);
+    const selectedTransport = transports.filter(transport => transport.name === name);
     const selectedTransportObj = selectedTransport[0];
 
     const handleSearch = () => {
+        setError('');
         if (cityFrom && cityTo && date) {
             setSearched(true);
-            console.log('Searching')
         } else {
-            console.log('Please, Make sure you give all the information')
+            setError('Please, Make sure you give all the information');
         }
 
     }
@@ -56,6 +56,7 @@ const Destination = () => {
                     <label htmlFor="Date">Journey Date</label>
                     <input onBlur={handleInput} className="search-input" type="date" name="date" id="date" /><br />
                     <button onClick={handleSearch} className="search-btn">Search</button>
+                    <p style={{ marginTop: '10px', textAlign:'center'}}><small style={{fontSize:'16px', color:'red', fontWeight:'600'}} >{error}</small></p>
                 </div> :
                     <div className="search-result-area search">
                         <div className="route">
@@ -68,10 +69,15 @@ const Destination = () => {
                         <div className="capacity">
                             <div className="transport">
                                 <div className="transport-icon">
-                                    <img className="transport-icon" src={selectedTransportObj?.photo} alt="transport" />
+                                    {
+                                        selectedTransportObj?.photo ? <img className="transport-icon" src={selectedTransportObj?.photo} alt="transport" /> : <img className="transport-icon" src={bike} alt="transport" />
+                                    }
+
                                 </div>
                                 <div className="transport-name">
-                                    <p>{selectedTransportObj?.name}</p>
+                                    {
+                                        selectedTransportObj?.name ? <p>{selectedTransportObj?.name}</p> : <p>Bike</p>
+                                    }
                                 </div>
                                 <div className="people-icon">
                                     <img className='people-icon' src={peopleIcon} alt="peopleIcon" />
@@ -81,16 +87,23 @@ const Destination = () => {
                                 </div>
                             </div>
                             <div className="price">
-                                <p>${selectedTransportObj?.single}</p>
+                                {
+                                    selectedTransportObj?.single ? <p>${selectedTransportObj?.single}</p> : <p>$69</p>
+                                }
                             </div>
                         </div>
                         <div className="capacity">
                             <div className="transport">
                                 <div className="transport-icon">
-                                    <img className="transport-icon" src={selectedTransportObj?.photo} alt="transport" />
+                                    {
+                                        selectedTransportObj?.photo ? <img className="transport-icon" src={selectedTransportObj?.photo} alt="transport" /> : <img className="transport-icon" src={bike} alt="transport" />
+                                    }
+
                                 </div>
                                 <div className="transport-name">
-                                    <p>{selectedTransportObj?.name}</p>
+                                    {
+                                        selectedTransportObj?.name ? <p>{selectedTransportObj?.name}</p> : <p>Bike</p>
+                                    }
                                 </div>
                                 <div className="people-icon">
                                     <img className='people-icon' src={peopleIcon} alt="peopleIcon" />
@@ -100,16 +113,23 @@ const Destination = () => {
                                 </div>
                             </div>
                             <div className="price">
-                                <p>${selectedTransportObj?.double}</p>
+                                {
+                                    selectedTransportObj?.double ? <p>${selectedTransportObj?.double}</p> : <p>$120</p>
+                                }
                             </div>
                         </div>
                         <div className="capacity">
                             <div className="transport">
                                 <div className="transport-icon">
-                                    <img className="transport-icon" src={selectedTransportObj?.photo} alt="transport" />
+                                    {
+                                        selectedTransportObj?.photo ? <img className="transport-icon" src={selectedTransportObj?.photo} alt="transport" /> : <img className="transport-icon" src={bike} alt="transport" />
+                                    }
+
                                 </div>
                                 <div className="transport-name">
-                                    <p>{selectedTransportObj?.name}</p>
+                                    {
+                                        selectedTransportObj?.name ? <p>{selectedTransportObj?.name}</p> : <p>Bike</p>
+                                    }
                                 </div>
                                 <div className="people-icon">
                                     <img className='people-icon' src={peopleIcon} alt="peopleIcon" />
@@ -119,13 +139,14 @@ const Destination = () => {
                                 </div>
                             </div>
                             <div className="price">
-                                <p>${selectedTransportObj?.family}</p>
+                                {
+                                    selectedTransportObj?.family ? <p>${selectedTransportObj?.family}</p> : <p>$180</p>
+                                }
                             </div>
                         </div>
                     </div>}
             </div>
             <div className="map">
-                {/* <img src={map} alt="map" /> */}
                 <MyMap></MyMap>
             </div>
         </div>
