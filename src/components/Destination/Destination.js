@@ -4,6 +4,7 @@ import map from '../../images/Map.png'
 import car from '../../images/Frame-1.png'
 import peopleIcon from "../../images/peopleicon.png"
 import { useParams } from 'react-router';
+import MyMap from '../MyMap/MyMap';
 
 const Destination = () => {
     const { name } = useParams();
@@ -125,7 +126,8 @@ const Destination = () => {
                     </div>}
             </div>
             <div className="map">
-                <img src={map} alt="map" />
+                {/* <img src={map} alt="map" /> */}
+                <MyMap></MyMap>
             </div>
         </div>
     );
