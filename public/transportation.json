@@ -1,0 +1,6 @@
+[
+    {"id":1,"name":"BIKE","photo":"https://i.ibb.co/4MncD5K/Frame.png","single":69,"double": 120,"family": 180},
+    {"id":2,"name":"BUS","photo":"https://i.ibb.co/cYBRZwP/Frame-1.png","single":50,"double": 90,"family": 120},
+    {"id":3,"name":"CAR","photo":"https://i.ibb.co/YBw5QyN/Frame-2.png","single":100,"double": 180,"family": 200},
+    {"id":4,"name":"TRAIN","photo":"https://i.ibb.co/wsCWGH1/Group.png","single":40,"double": 75,"family": 140}
+]

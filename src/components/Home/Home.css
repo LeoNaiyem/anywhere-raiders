@@ -9,5 +9,6 @@
     padding: 9rem 5rem;
     display: flex;
     justify-content: space-around;
+    flex-wrap: wrap;
     align-items: center;
 }

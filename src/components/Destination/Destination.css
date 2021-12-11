@@ -1,52 +1,139 @@
-.destination{
+.destination {
     padding: 5rem 1rem 1rem 2rem;
     display: flex;
     justify-content: content;
     height: 100vh;
 }
-.search-area{
+
+.search-area {
     width: 30%;
 
 }
-.map{
+
+.map {
     width: 70%;
 }
-.search{
+
+.search {
     width: 90%;
     margin: 0 auto;
     background-color: lightgray;
     padding: 2.5rem;
-    border-radius:10px;
-    
+    border-radius: 10px;
+
 }
-.search-input{
+
+.search-input {
     width: 100%;
     line-height: 1.5rem;
-    border-radius:3px;
+    border-radius: 3px;
     outline: none;
     border: none;
     padding: 3px;
     margin-bottom: 5px;
 }
-.search-input:focus{
+
+.search-input:focus {
     outline: 2px solid #ff4400e7;
 }
-.map img{
+
+.map img {
     width: 100%;
     height: 100%;
 }
-.search-btn{
+
+.search-btn {
     background-color: #ff4400e7;
     width: 100%;
     padding: 10px;
     border: none;
     outline: none;
     margin-top: 8px;
-    border-radius:3px;
+    border-radius: 3px;
     color: white;
-    font-size:15px;
+    font-size: 15px;
     cursor: pointer;
 }
-.search-btn:hover{
+
+.search-btn:hover {
     background-color: #ff4400bf;
+}
+
+.route {
+    background-color: #ff4400e7;
+    padding: 2rem;
+    margin-bottom: 15px;
+    border-radius: 10px;
+}
+
+.route ul {
+    list-style: none;
+}
+
+.route ul li {
+    padding-bottom: 40px;
+    position: relative;
+    color: #fff;
+    font-weight: 600;
+}
+
+.route ul li span {
+    border-radius: 50%;
+    padding: 0px 10px;
+    margin-right: 10px;
+    background: #fff;
+}
+
+.route ul li span:before {
+    content: '';
+    position: absolute;
+    border-left: 3px solid white;
+    left: 9px;
+    bottom: 0;
+    z-index: 0;
+    height: 100%;
+}
+
+.route ul li:last-child span:before {
+    content: none;
+}
+
+.route ul li:last-child {
+    padding-bottom: 0;
+}
+.route p{
+    color: #fff;
+    margin-top: 10px;
+    font-weight: 600;
+}
+
+.capacity {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+
+}
+
+.transport {
+    display: flex;
+    align-items: center;
+}
+.transport-icon, .transport-name, .people-icon, .people-number, .price{
+    margin-right: 10px;
+    font-weight: 700;
+}
+.transport-icon{
+    height: 40px;
+    width: 40px;
+    margin-right: 10px;
+    object-fit: contain;
+}
+
+.people-icon{
+    width: 25px;
+    height: 25px;
+}
+.transport span{
+    padding-right: 10px;
 }
